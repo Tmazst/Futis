@@ -45,6 +45,7 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(user_id)
 
+application=app
 
 ALLOWED_EXTENSIONS = {"txt", "xlxs",'docx', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
