@@ -805,37 +805,6 @@ def verified(token):
     return render_template('verified.html')
 
 
-# Twilio credentials
-ACCOUNT_SID = 'ACe64b029930727bcf0520da400f7819c0'
-AUTH_TOKEN = 'your_auth_token'
-
-# Twilio WhatsApp number (should be a phone number you've verified with Twilio)
-TWILIO_WHATSAPP_NUMBER = 'whatsapp:+14155238886'  # Example WhatsApp sandbox number
-
-# client = Client(ACCOUNT_SID, AUTH_TOKEN)
-
-@app.route('/send-whatsapp', methods=['POST'])
-def send_whatsapp():
-    try:
-        # Get data from the request (recipient phone number and message)
-        recipient_number = request.json.get('to')
-        message_body = request.json.get('message')
-
-        if not recipient_number or not message_body:
-            return jsonify({'error': 'Recipient number and message are required'}), 400
-
-        # Send message using Twilio client
-        message = client.messages.create(
-            body=message_body,
-            from_=TWILIO_WHATSAPP_NUMBER,
-            to=f'whatsapp:{recipient_number}'
-        )
-
-        return jsonify({'status': 'Message sent', 'message_sid': message.sid}), 200
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
 
 # Flask route to search for a value in all columns of a table
 @app.route('/search', methods=['GET'])
