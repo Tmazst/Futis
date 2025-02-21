@@ -15,7 +15,7 @@ from flask_mail import Mail, Message
 # from bs4 import BeautifulSoup as bs
 # from flask_colorpicker import colorpicker
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
-import pyodbc
+# import pyodbc
 import time
 import sqlite3
 import itsdangerous
