@@ -95,5 +95,29 @@
 
     cont.style.setProperty('--after-content','"(updated)"');
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Select the input and buttons
+    
+    const qtyInput = document.querySelector('.order_qty');
+    const minusButton = document.querySelector('.qty-minus');
+    const plusButton = document.querySelector('.qty-plus');
+
+    // Handle the minus button click
+    minusButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        let currentValue = parseInt(qtyInput.value) || 0; // Get the current value of the input
+        if (currentValue > 1) { // Ensure the value does not go below `1`
+            qtyInput.value = currentValue - 1;
+        }
+    });
+
+    // Handle the plus button click
+    plusButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        let currentValue = parseInt(qtyInput.value) || 0; // Get the current value of the input
+        qtyInput.value = currentValue + 1; // Increment the value
+    });
+});
+
 </script>
 {% endblock %}

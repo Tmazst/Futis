@@ -52,30 +52,6 @@ function closeSideNavFunc(){
     };
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Select the input and buttons
-    
-    const qtyInput = document.querySelector('.order_qty');
-    const minusButton = document.querySelector('.qty-minus');
-    const plusButton = document.querySelector('.qty-plus');
-
-    // Handle the minus button click
-    minusButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        let currentValue = parseInt(qtyInput.value) || 0; // Get the current value of the input
-        if (currentValue > 1) { // Ensure the value does not go below `1`
-            qtyInput.value = currentValue - 1;
-        }
-    });
-
-    // Handle the plus button click
-    plusButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        let currentValue = parseInt(qtyInput.value) || 0; // Get the current value of the input
-        qtyInput.value = currentValue + 1; // Increment the value
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
     var usr = document.querySelector('.nav-link1');
     var trimmed = usr.innerHTML.substring(0,5);
     usr.innerHTML = trimmed+"...";
@@ -95,25 +71,6 @@ function hideShowFbtns(){
     fbtns.classList.toggle('hide');
     contHandle.classList.toggle('derotate');
 };
-
-
-const listIcon = document.querySelector("#list");
-const blocksIcon = document.querySelector("#blocks");
-
-listIcon.addEventListener("click", function(){
-
-    window.location.href = "/?icon=listview";
-    // listIcon.classList.add('active') ;
-
-});
-
-blocksIcon.addEventListener("click", function(){
-
-    window.location.href = "/?icon=blockview";
-    console.log("Blocks Icon CLicked");
-
-});
-
 
 
 
@@ -477,4 +434,21 @@ function openPopContacts(assign_cont,id){
     // // Use replaceState to update the URL without the query parameter
     // window.history.replaceState({path: newUrl}, '', newUrl);
 };
+
+const listIcon = document.querySelector("#list");
+const blocksIcon = document.querySelector("#blocks");
+
+listIcon.addEventListener("click", function(){
+
+    window.location.href = "/?icon=listview";
+    // listIcon.classList.add('active') ;
+
+});
+
+blocksIcon.addEventListener("click", function(){
+
+    window.location.href = "/?icon=blockview";
+    console.log("Blocks Icon CLicked");
+
+});
 
