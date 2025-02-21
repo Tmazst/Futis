@@ -660,7 +660,7 @@ def login():
                     #     return redirect(req_page) if req_page else redirect(url_for('home'))
                 else:
                     flash(f"Login Unsuccessful, please use correct email or password", "error")
-                    # print(login.errors)
+
         else:
             print("No Validation")
             if login.errors:
