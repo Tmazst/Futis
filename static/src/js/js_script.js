@@ -1,4 +1,5 @@
 
+
 // Form Submittion
 // $(document).ready(function(){
 
@@ -27,6 +28,8 @@
 //     });
 // });
 
+
+
 function sideNavFunc(event){
     // var popScrnLogo = document.getElementById("updates");
     // popScrnLogo.classList.toggle("show-popup");
@@ -36,7 +39,6 @@ function sideNavFunc(event){
     // document.querySelector("#commentField").value = "";
     sideNavBg.classList.toggle("show-popup");
     sideNavCont.classList.toggle("show-menu");
-
     };
 
 function closeSideNavFunc(){
@@ -55,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var usr = document.querySelector('.nav-link1');
     var trimmed = usr.innerHTML.substring(0,5);
     usr.innerHTML = trimmed+"...";
+
+    
 });
 
 function showHideFbtns(){
@@ -119,17 +123,16 @@ resizeObserver.observe(document.body);
 
 
 let slideIndex = 0;
-const slides = document.getElementsByClassName("slide");
+const slides = document.getElementsByClassName("images-slides");
 
 function showSlides() {
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";  
-        // slides[i].classList.remove("active");
+        slides[i].classList.remove('show-img-slide');
     }
     slideIndex = (slideIndex + 1) % slides.length; // Go to the next slide
-    slides[slideIndex].style.display = "block";  
-    // slides[i].classList.add("active");
-    setTimeout(showSlides, 3000); // Change image every 3 seconds
+    slides[slideIndex].classList.add("show-img-slide");
+    setTimeout(showSlides, 6000); // Change image every 3 seconds
 }
 
 // Start the slideshow
@@ -141,8 +144,9 @@ function changeSlide(n) {
     slideIndex = (slideIndex + n + slides.length) % slides.length; // Calculate new index
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
+        // slides[i].classList.remove('show-img-slide');
     }
-    slides[slideIndex].style.display = "block"; // Show the current slide
+    // slides[slideIndex].classList.add("show-img-slide"); // Show the current slide
 }
 
 
@@ -150,45 +154,45 @@ function changeSlide(n) {
 let currTouch = 0;
 let initTouchX,endTouchX;
 
-var slider = document.querySelector('.slider');
-slider.addEventListener('touchstart', function(event){
-    initTouchX = event.touches[0].clientX;
-    slider.style.animationDuration='0s';
-    // let slideShow = getElementsByClassName();
-});
+// var slider = document.querySelector('.slider');
+// slider.addEventListener('touchstart', function(event){
+//     initTouchX = event.touches[0].clientX;
+//     slider.style.animationDuration='0s';
+//     // let slideShow = getElementsByClassName();
+// });
 
-slider.addEventListener('touchmove', function(event){
-    if (!initTouchX) return;
+// slider.addEventListener('touchmove', function(event){
+//     if (!initTouchX) return;
 
-    const touch = event.touches[0];
-    const diffX = touch.clientX - startX;
+//     const touch = event.touches[0];
+//     const diffX = touch.clientX - startX;
 
-    if (Math.abs(diffX) > 50){
-        event.preventDefault();
+//     if (Math.abs(diffX) > 50){
+//         event.preventDefault();
 
-        if (diffX > 0){
-            slider.scrollBy({
-                left:-diffX,
-                behavior: 'smooth'
-            });
-        }else{
-            // Swiped left - scroll right
-            slider.scrollBy({
-                left: diffX,
-                behavior: 'smooth'
-            });
-        }
-         // Reset startX to prevent repeated scrolls
-         initTouchX = touch.clientX;       
-    }
-});
+//         if (diffX > 0){
+//             slider.scrollBy({
+//                 left:-diffX,
+//                 behavior: 'smooth'
+//             });
+//         }else{
+//             // Swiped left - scroll right
+//             slider.scrollBy({
+//                 left: diffX,
+//                 behavior: 'smooth'
+//             });
+//         }
+//          // Reset startX to prevent repeated scrolls
+//          initTouchX = touch.clientX;       
+//     }
+// });
 
-container.addEventListener('touchend', function() {
-    initTouchX = null;
-    // Resume sliding
-    slider.style.animationDelay='3s';
-    slider.style.animationDuration='1s';
-});
+// container.addEventListener('touchend', function() {
+//     initTouchX = null;
+//     // Resume sliding
+//     slider.style.animationDelay='3s';
+//     slider.style.animationDuration='1s';
+// });
 
 
 // Image Viewer

@@ -10,6 +10,15 @@
     <div class="" >
             <div style="z-index:551">
                 <div class="form-container">
+                    <div style="z-index:1001" class="flash-messages">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for  category, message in messages %}
+                                    <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                    </div>
                     <div class="space-filler"></div>
                 <div class="cap-icons">
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -84,7 +93,7 @@
                     <!------- Item Description --------->
                     <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
                         {{ item_edit_form.item_description.label(class="labels") }}
-                        <textarea class="form-control adj-width-60" value="">{{menu_item.item_description}}</textarea>
+                            <textarea class="form-control adj-width-60" value="" name="item_description">{%if menu_item.item_description %}{{menu_item.item_description}}{%endif%}</textarea>
                         {% if item_edit_form.item_description.errors %}
                             {% for error in item_edit_form.item_description.errors %}
                                 <span class="span-error" >*{{error}}</span>
@@ -95,7 +104,7 @@
                     <!------- Ingredients --------->
                     <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
                         {{ item_edit_form.item_ingredients.label(class="labels") }}
-                        <textarea class="form-control adj-width-60" value="">{{menu_item.item_ingredients}}</textarea>
+                       <textarea class="form-control adj-width-60" value="" name="item_ingredients">{%if menu_item.item_ingredients %}{{menu_item.item_ingredients}}{%endif%}</textarea>
                         {% if item_edit_form.item_ingredients.errors %}
                             {% for error in item_edit_form.item_ingredients.errors %}
                                 <span class="span-error" >*{{error}}</span>

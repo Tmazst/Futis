@@ -252,7 +252,6 @@ def process_file(file):
             if file.filename:
                 file_saved = file.save(os.path.join(app.root_path, 'static/uploads', new_file_name))
                 img_checker.cur_file = new_file_name
-                flash(f"File Upload Successful!!", "success")
                 return new_file_name
 
             else:
@@ -580,9 +579,8 @@ def entertainer_sign_up():
 @login_required
 def entertainment_account():
 
-    update_acc = EntertainerUserForm()
-
     entertain_user = entertainer_user.query.get(current_user.id)
+    update_acc = EntertainerUserForm(obj=entertain_user)
 
     print("DEBUG AGENT: ",entertain_user.name)
 
@@ -595,12 +593,12 @@ def entertainment_account():
             # hashd_pwd = encry_pw.generate_password_hash(update_acc.password.data).decode('utf-8')
             entertain_user.name = update_acc.company_name.data
             # print("IMAGE: ",update_acc.image.data,request.args.get("image"))
-            if update_acc.logo.data:
+            if update_acc.logo.data and not update_acc.logo.data == entertain_user.image:
                 img_new = profile_img(update_acc.logo.data)
                 if img_checker:
                     entertain_user.image = img_new
 
-            if update_acc.company_profile_img.data:
+            if update_acc.company_profile_img.data and not update_acc.company_profile_img.data == entertain_user.company_profile_img:
                 img_new = profile_img(update_acc.company_profile_img.data)
                 if img_checker:
                     entertain_user.company_profile_img = img_new
@@ -617,6 +615,7 @@ def entertainment_account():
             entertain_user.region = update_acc.region.data
             entertain_user.coordinates = update_acc.coordinates.data
             entertain_user.payment_options = update_acc.payment_options.data
+
 
             db.session.commit()
             flash(f"Update Successful!", "success")
@@ -803,7 +802,6 @@ def verified(token):
         flash(f"Something went wrong, Please try again ", "error")
 
     return render_template('verified.html')
-
 
 
 # Flask route to search for a value in all columns of a table
@@ -1042,21 +1040,20 @@ def menu_form_edit():
 
     no_of_menu_itms=len(Menu_Items.query.filter_by(cid=current_user.id).all())
     menu_item = Menu_Items.query.filter_by(cid=current_user.id,id=ser.loads(request.args.get("mid"))['data']).first()
-    item_edit_form = MenuItemForm()
+    item_edit_form = MenuItemForm(obj=menu_item)
     images = Menus_Images.query.filter_by(token = menu_item.token).first()
 
     if request.method == "POST":
-
+        print("Check Description: ",request.form.get("item_description"))
         menu_item.item_name = item_edit_form.item_name.data
         menu_item.item_caption = item_edit_form.item_caption.data
-        menu_item.item_description = item_edit_form.item_description.data
+        menu_item.item_description = request.form.get("item_description")
         menu_item.item_ingredients = item_edit_form.item_ingredients.data
         menu_item.item_food_group = item_edit_form.item_food_group.data
         menu_item.item_price = item_edit_form.item_price.data
 
         # images = Menus_Images.query.filter_by(token = menu_item.token).first()
-
-        if item_edit_form.main_img.data:
+        if item_edit_form.main_img.data and not item_edit_form.main_img.data == menu_item.main_img:
             remove_path(menu_item.main_img,"static/uploads")
             menu_item.main_img=process_file(item_edit_form.main_img.data)
 
@@ -1073,6 +1070,7 @@ def menu_form_edit():
                     images.img_2 = img_str
 
         db.session.commit()
+        flash("Update Successful","success")
 
     return render_template("item_edit_form.html", item_edit_form=item_edit_form,no_of_menu_itms=no_of_menu_itms,menu_item=menu_item,images=images)
 

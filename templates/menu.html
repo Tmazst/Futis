@@ -36,21 +36,22 @@
     {% for food_group in food_groups %}
         <a href="/menu?fvar={{ser.dumps({'data':food_group})}}"><div class="opts-btns">{{food_group}}</div></a>
     {% endfor %}
-</div><br>
+</div><br><br>
 
-<section class="menu-list-cont"> 
+<!-- Menu Lists  -->
+<section class="menu-list-cont menu-sections "> 
         {% for item in query_menu %}
         <div class="menu-list">
             <div onclick="popMenuItem('{{item.id}}')" style="height:45px;width:45px;overflow: hidden;border-radius: 10px;"><img style="height:inherit;border-radius:10px" src="static/uploads/{{item.main_img}}" /></div>
             <div class="item-as-btn" style="text-wrap: nowrap;" onclick="popMenuItem('{{item.id}}')" class="menu-item">{{item.item_name}}</div>
-            <div style="background-color: #303030 !important;height: 1px;flex-grow:1;" class=""></div>
-            <label style="font-weight: 600;font-size: 23px;color:#303030">{{item.item_price}}0</label>
+            <div style="background-color;height: 1px;flex-grow:1;" class="line-menu"></div>
+            <label style="font-weight: 600;font-size: 23px;">{{item.item_price}}0</label>
         </div>
 
         <!-- POP UP -->
         <div id="pop_menucont_{{item.id}}" class="pop-cont">
-            <div style="height:;max-width:500px;top:200px;background-color: white;" id="popup_menu_{{item.id}}" class="pop-up">
-                <div style="max-width:500px !important;background-color:white">  
+            <div style="height:;max-width:500px;top:200px;" id="popup_menu_{{item.id}}" class="pop-up">
+                <div style="max-width:500px !important;">  
                     <h4>Order Online!</h4>
                     <div class="cont">
                         <div class="menu-item-container" >
@@ -71,9 +72,7 @@
                         <div class="item-caption widther">{{item.item_caption}}</div>
                         <div><a href="/place_order?mid={{ser.dumps({'data':item.id})}}"><div style="justify-content: center;" class="actions">
                             <div style="height:26px;color:azure;min-width:100px;width:70px;font-size:13px" class="order-cont">Order Live!</div></div></a></div><br>
-                        <div class="item-description widther">{{item.item_description}}</div><br>
-                        <div class="widther ingred" style="">Ingredients:</div>
-                        <div class="item-ingridients widther">{{item.item_ingredients}}</div>
+                        
                         
                         <div style="display:flex;gap:5px">
 
@@ -85,43 +84,45 @@
         </div>
         {% endfor %}
 </section> <br><br>
-<h1>People also like:</h1>
-<!--  Second Post  -->
+
+<h1>Suggested For You😍:</h1>
+
 {% for food_group in food_groups %}
     {% for item in query_menu %}
         {% if food_group == item.item_food_group %}
-        <section style="max-width:500px !important;background-color: rgb(252, 224, 189);">  
+        
+        <section style="" class="menu-sections menu-cards">  
             <div class="cont">
+
                 <div style="position:relative" class="menu-title" >
                     <div class="img-conta gen-flex" >
-                    <img height="30px" src="static/icons/food-menu.png" />
+                    <img height="30px" src="static/icons/tfh_logo_icon.png" />
                     </div>
                     <h1 class="food-group">{{food_group.title()}}</h1>
-                    <img style="position:absolute;bottom: 2px;left:50%" height="30px" src="static/images/logo_png.png" />
-
+                    <!-- <img style="position:absolute;bottom: 2px;left:50%" height="30px" src="static/icons/tfh_logo_icon.png" /> -->
                 </div>
                 
                 <div class="menu-item-container" >
                     <div class="item-images-cont">
                         
                         <div style="" class="item-main-img">
-                            <div class="bg-image">
+                            <!-- <div class="bg-image">
                                 <img src="static/uploads/{{item.main_img}}" />
-                            </div>
+                            </div> -->
                             <img class="foreground-image" style="height:inherit" src="static/uploads/{{item.main_img}}" />
                         </div>
-    
-                        <div class="price-tag-outline" id="dynamic-after"><label class="price-label" style="padding:px;">{{item.item_price}}</label><label class="price-label" style="font-size: 13px;">.50</label></div> 
+                        <div class="price-tag-outline" id="dynamic-after" style="padding:px;z-index:501"><label class="price-label" style="padding:px;z-index:502">{{item.item_price}}</label><label class="price-label" style="font-size: 13px;">.50</label></div>
+
                     </div>
-                </div><br>
-                <div class="item-name widther">{{item.item_name}}</div>
+                </div><br><br>
+                <h1 class="item-name widther">{{item.item_name}}</h1>
                 <div class="item-caption widther">{{item.item_caption}}</div>
                 <div><a href="/place_order?mid={{ser.dumps({'data':item.id})}}"><div style="justify-content: center;" class="actions">
-                    <div style="height:26px;color:azure;min-width:100px;width:70px;font-size:13px" class="order-cont">Order Live!</div></div></a></div><br>
-                    {%if item.item_description%}
+                    <div style="height:30px;color:azure;min-width:100px;width:80px;font-size:13px" class="order-cont">Order Live!</div></div></a></div><br>
+                {%if item.item_description%}
                 <div class="item-description widther">{{item.item_description}}</div>
                 {%endif%}<br>
-                {%if item.item_ingredients%}
+                {%if item.item_ingredi123ents%}
                 <div class="widther ingred" style="">Ingredients:</div>
                 <div class="item-ingridients widther">{{item.item_ingredients}}</div>
                 {%endif%}
@@ -138,9 +139,9 @@
                 </div>
                 {% endif %}
             </div>
-            <div style="width:auto" class="actions">
-                <object type="image/svg+xml" data="static/icons/heart-icon.svg" class="heart-icon"></object><div class="likes-no" style="">300</div>  
-            </div>
+            <!-- <div style="width:auto" class="actions">
+                <object type="image/svg+xml" data="static/icons/heart-icon.svg" class="heart-icon"></object><div class="likes-no" style=""></div>  
+            </div> -->
         </section><br><br><div class="space-filler"></div>
         {% endif %}
     {% endfor %}
